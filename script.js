@@ -1,8 +1,9 @@
 function drawIt() {
+
 var x = 250;
 var y = 350;
 var dx = 0;
-var dy = 5;
+var dy = 3;
 var WIDTH=500;
 var HEIGHT=700;
 var r=10;
@@ -11,7 +12,6 @@ var start=true;
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 function init() { 
   sekunde = 0;
   izpisTimer = "00:00";
@@ -174,10 +174,10 @@ var BRICKHEIGHT;
 var PADDING;
 
 function initbricks() { //inicializacija opek - polnjenje v tabelo
-  NROWS = 10;
-  NCOLS = 13;
+  NROWS = 5;
+  NCOLS = 5;
   BRICKWIDTH = (WIDTH/NCOLS) - 1;
-  BRICKHEIGHT = 35;
+  BRICKHEIGHT = 15;
   PADDING = 1;
   bricks = new Array(NROWS);
   for (i=0; i < NROWS; i++) {
@@ -285,7 +285,7 @@ function draw() {
     //štetje zadetih opek
     if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
     dy = -dy; bricks[row][col] = 0;
-    tocke += 1; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
+    tocke += 10; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
     $("#tocke").html(tocke);
     }
 

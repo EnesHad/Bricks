@@ -2,14 +2,21 @@
     <head>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body onload="drawIt()">
+    <body>
         <div class="body">
+            <div class="title">THE BRICKS</div>
             <div class="main">
-                <canvas id="canvas" width="500" height="700"></canvas>
+                <div>
+                    <canvas id="canvas" width="500" height="700"></canvas>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="play" onclick="drawIt()">PLAY</button>
+                </div>
+                
             </div>
-            
-    <p>Točke: <mark id="tocke">0</mark></p>
-    <p>Čas: <mark id="cas">00:00</mark></p>
+
+            <p>Točke: <mark id="tocke">0</mark></p>
+            <p>Čas: <mark id="cas">00:00</mark></p>
         </div>
         
     </body>
