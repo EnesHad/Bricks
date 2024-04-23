@@ -7,24 +7,41 @@
             <div class="title">THE BRICKS</div>
             <div class="main">
                 <div>
-                    <canvas id="canvas" width="500" height="700">
+                    <canvas id="canvas" width="500" height="800">
                         <img src="img/ice1.png" id="ice">
 
 
                     </canvas>
                     
                 </div>
-                <div class="buttons">
-                    <button type="button" class="play" onclick="drawIt()">PLAY</button>
-                </div>
                 
+                <div class="panel">
+                    <table>
+                        <tr>
+                            <td class="score"><a >Točke: <a id="tocke">0</a></a></td>
+                            <td class="buttons">
+                                <button type="button" id="play" class="play" onclick="drawIt()">PLAY</button>
+                                <button type="button" id="reset" class="reset" onclick="window.location.reload()">RESET</button>
+                            </td>
+                            <td class="time"><a>Čas: <a id="cas">00:00</a></a></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
+            
 
-            <p>Točke: <mark id="tocke">0</mark></p>
-            <p>Čas: <mark id="cas">00:00</mark></p>
+
+            
         </div>
         
     </body>
 <script src="script.js"></script>
 <script src="jQuery.js"></script>
 </html>
+
+
+
+
+
+
+

@@ -1,11 +1,10 @@
-function drawIt() {
-  var x = 250;
+var x = 250;
   var y = 350;
   var dx = 0;
-  var dy = 2  ;
+  var dy = 1.5;
   var WIDTH = 500;
   var HEIGHT = 700;
-  var r = 10;
+  var r = 18;
   var ctx;
   var paddlex;
   var paddleh;
@@ -21,14 +20,32 @@ function drawIt() {
   var BRICKHEIGHT;
   var PADDING;
   var tocke;
-  var sekunde;
+  var sekunde =0;
   var sekundeI;
   var minuteI;
   var intTimer;
   var izpisTimer;
   var start = true;
   const ice = document.getElementById("ice");
+  var anc=0;
+  
+  var fire =new Array();
+  fire[0] =new Image();
+  fire[0].src= 'img/fire1.png';
+  fire[1] =new Image();
+  fire[1].src= 'img/fire2.png';
+  fire[2] =new Image();
+  fire[2].src= 'img/fire3.png';
+  fire[3] =new Image();
+  fire[3].src= 'img/fire4.png';
+  fire[4] =new Image();
+  fire[4].src= 'img/fire5.png';
+  fire[5] =new Image();
+  fire[5].src= 'img/fire6.png';
 
+
+function drawIt() {
+  
   function init() {
     ctx = $('#canvas')[0].getContext("2d");
     WIDTH = $("#canvas").width();
@@ -38,8 +55,11 @@ function drawIt() {
     sekunde = 0;
     izpisTimer = "00:00";
     intTimer = setInterval(timer, 1000);
+    intAni = setInterval(animation,100);
     return intervalId = setInterval(draw, 10);
+    
   }
+  
 
   function circle(x, y, r) {
     ctx.beginPath();
@@ -59,12 +79,12 @@ function drawIt() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
   }
   //END LIBRARY CODE
-  function draw() {
+  /*function draw() {
     clear();
     circle(x, y, 10);
     x += dx;
     y += dy;
-  }
+  }*/
 
   function init_paddle() {
     paddlex = (WIDTH / 2) - 37.5;
@@ -134,6 +154,11 @@ function drawIt() {
     }
   }
 
+  function animation(){
+    anc++;
+  }
+  document.getElementById("reset").disabled=false;
+  document.getElementById("play").disabled=true;
   init();
   init_paddle();
   init_mouse();
@@ -141,7 +166,15 @@ function drawIt() {
 
   function draw() {
     clear();
-    circle(x, y, 10);
+
+    //set to -1 of array ore else error
+    if(anc>5){
+      anc=0;
+    }
+    ctx.drawImage(fire[anc],x-r,y-r,2*r,2*r);
+
+
+    //circle(x, y, 10);
 
     if (x + dx > WIDTH - r || x + dx < r)
       dx = -dx;
@@ -150,8 +183,7 @@ function drawIt() {
     x += dx;
     y += dy;
 
-    clear();
-    circle(x, y, 10);
+    
     //premik ploščice levo in desno
     if (rightDown) paddlex += 5;
     else if (leftDown) paddlex -= 5;
@@ -170,11 +202,10 @@ function drawIt() {
         if (x > paddlex && x < paddlex + paddlew) {
           dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
           dy = -dy;
-          start = true;
         }
         else if (y + dy > HEIGHT - 12)
           clearInterval(intervalId);
-
+          start = false;
       }
     }
     x += dx;
@@ -186,16 +217,12 @@ function drawIt() {
     for (i = 0; i < NROWS; i++) {
       for (j = 0; j < NCOLS; j++) {
         if (bricks[i][j] == 1) {
-          ctx.drawImage(ice,
-            j * (BRICKWIDTH + PADDING) + PADDING,
-            i * (BRICKHEIGHT + PADDING) + PADDING,
-            BRICKWIDTH, BRICKHEIGHT);
+          ctx.drawImage(ice,j * (BRICKWIDTH + PADDING) + PADDING,i * (BRICKHEIGHT + PADDING) + PADDING,BRICKWIDTH, BRICKHEIGHT);
         }
       }
     }
 
 
-    circle(x, y, 10);
     //premik ploščice levo in desno
     if (rightDown) {
       if ((paddlex + paddlew) < WIDTH) {
