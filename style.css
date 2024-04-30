@@ -13,8 +13,9 @@ body{
 .title{
     height: 50px;
     text-align: center;
-    font-size: 50px;
+    font-size: 60px;
     padding: 5px;
+    font-family: ice;
 }
 #canvas{
     background: rgba(228, 236, 236, 0.671);
@@ -30,17 +31,17 @@ body{
     width: 60px;
     height: 30px;
 }
-.play{
-}
 .panel {
     margin: auto;
     width: 500px;
     font-size: 20px;
+    background-color: rgb(170,255,240);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 table{
     width: 500px;
     height: 55px;
-    border: 1px black solid;
     justify-content: center;
     text-align: center;
 }
@@ -52,4 +53,56 @@ table{
 }
 .time{
     width: 125px;
+}
+.custom-title{
+    font-family: ice;
+    font-size: 55px;
+}
+.t{
+    font-family: ice;
+    font-size: 45px;
+}
+
+button {
+ padding: 0.8em 1.8em;
+ border: 2px solid #17C3B2;
+ position: relative;
+ overflow: hidden;
+ background-color: transparent;
+ text-align: center;
+ text-transform: uppercase;
+ font-size: 16px;
+ transition: .3s;
+ z-index: 1;
+ font-family: inherit;
+ color: #17C3B2;
+}
+
+button::before {
+ content: '';
+ width: 0;
+ height: 300%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%) rotate(45deg);
+ background: linear-gradient(red, orange, yellow);
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+
+button:hover::before {
+ width: 105%;
+}
+
+button:hover {
+ color: #111;
+ border: rgba(19, 16, 16, 0.829) 2px solid;
+}
+
+
+@font-face {
+    font-family: ice;
+    src: url(font/ice-and-snow-font/IceAndsnowNormal-2ve8.ttf);
 }

@@ -4,7 +4,7 @@ var x = 250;
   var dy = 1.5;
   var WIDTH = 500;
   var HEIGHT = 700;
-  var r = 18;
+  var r = 20;
   var ctx;
   var paddlex;
   var paddleh;
@@ -43,6 +43,41 @@ var x = 250;
   fire[5] =new Image();
   fire[5].src= 'img/fire6.png';
 
+  function rules(){
+    Swal.fire({
+      title: "RULES",
+      text: "Melt away the bricks. Use mouse or arrow keys.",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#7d9ab3",
+      customClass: {
+				title: "custom-title",
+			},
+    });
+  }
+
+  function win(){
+    Swal.fire({
+      title: "YOU WON",
+      text: "gg",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#7d9ab3",
+      customClass: {
+				title: "custom-title",
+			},
+    });
+  }
+
+  function end(){
+    Swal.fire({
+      title: "GAME OVER",
+      text: "you lost",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#7d9ab3",
+      customClass: {
+				title: "custom-title",
+			},
+    });
+  }
 
 function drawIt() {
   
@@ -57,15 +92,6 @@ function drawIt() {
     intTimer = setInterval(timer, 1000);
     intAni = setInterval(animation,100);
     return intervalId = setInterval(draw, 10);
-    
-  }
-  
-
-  function circle(x, y, r) {
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fill();
   }
 
   function rect(x, y, w, h) {
@@ -78,18 +104,10 @@ function drawIt() {
   function clear() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
   }
-  //END LIBRARY CODE
-  /*function draw() {
-    clear();
-    circle(x, y, 10);
-    x += dx;
-    y += dy;
-  }*/
-
   function init_paddle() {
     paddlex = (WIDTH / 2) - 37.5;
     paddleh = 10;
-    paddlew = 75;
+    paddlew = 70;
   }
 
   //nastavljanje leve in desne tipke
@@ -174,11 +192,10 @@ function drawIt() {
     ctx.drawImage(fire[anc],x-r,y-r,2*r,2*r);
 
 
-    //circle(x, y, 10);
 
     if (x + dx > WIDTH - r || x + dx < r)
       dx = -dx;
-    if (y + dy > HEIGHT - 12 || y + dy < r)
+    if (y + dy > HEIGHT -10 || y + dy < r)
       dy = -dy;
     x += dx;
     y += dy;
@@ -192,18 +209,18 @@ function drawIt() {
       dx = -dx;
     if (y + dy < 0 + r)
       dy = -dy;
-    else if (y + dy > HEIGHT - 12) {
+    else if (y + dy > HEIGHT - 10) {
       if (x > paddlex && x < paddlex + paddlew) {
         dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
         dy = -dy;
       }
-      else if (y + dy > HEIGHT - 12) {
+      else if (y + dy > HEIGHT - 10) {
         start = false;
         if (x > paddlex && x < paddlex + paddlew) {
           dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
           dy = -dy;
         }
-        else if (y + dy > HEIGHT - 12)
+        else if (y + dy > HEIGHT - 10)
           clearInterval(intervalId);
           start = false;
       }
@@ -222,23 +239,6 @@ function drawIt() {
       }
     }
 
-
-    //premik ploščice levo in desno
-    if (rightDown) {
-      if ((paddlex + paddlew) < WIDTH) {
-        paddlex += 5;
-      } else {
-        paddlex = WIDTH - paddlew;
-      }
-    }
-    else if (leftDown) {
-      if (paddlex > 0) {
-        paddlex -= 5;
-      } else {
-        paddlex = 0;
-      }
-    }
-    rect(paddlex, HEIGHT - paddleh, paddlew, paddleh);
 
     rowheight = BRICKHEIGHT + PADDING; //Smo zadeli opeko?
     colwidth = BRICKWIDTH + PADDING;
