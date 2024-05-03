@@ -3,7 +3,7 @@ margin: 0;
 padding: 0;
 }
 body{
-    background: url(img/bg.png) no-repeat;
+    background: url(img/bg.png) no-repeat fixed center;
     background-size: cover;
 }
 .body{
@@ -27,11 +27,13 @@ body{
     margin:auto;
     text-align: center;
 }
-.button{
-    width: 60px;
-    height: 30px;
+.game{
+    margin: 0px;
+    padding: 0px;
+    height: 750px;
 }
 .panel {
+    margin-top: -10px;
     margin: auto;
     width: 500px;
     font-size: 20px;
@@ -44,6 +46,10 @@ table{
     height: 55px;
     justify-content: center;
     text-align: center;
+}
+.button{
+    width: 60px;
+    height: 30px;
 }
 .score{
     width: 125px;

@@ -1,13 +1,18 @@
+<!DOCTYPE html>
+<html lang="sl">
+
 <html>
     <head>
+        <title>The Bricks</title>
+        <link rel="icon" type="image/x-icon" href="img/ice.ico">
         <link rel="stylesheet" href="style.css">
     </head>
     <body onload="rules()">
         <div class="body">
             <div class="title">THE BRICKS</div>
             <div class="main">
-                <div>
-                    <canvas id="canvas" width="500" height="800">
+                <div class="game">
+                    <canvas id="canvas" width="500" height="750">
                         <img src="img/ice1.png" id="ice">
 
 
@@ -18,20 +23,16 @@
                 <div class="panel">
                     <table>
                         <tr>
-                            <td class="score"><a >Točke: <a id="tocke">0</a></a></td>
+                            <td class="score"><a >Score: <a id="tocke">0</a></a></td>
                             <td class="buttons">
                                 <button type="button" id="play" class="play" onclick="drawIt()">PLAY</button>
                                 <button type="button" id="reset" class="reset" onclick="window.location.reload()">RESET</button>
                             </td>
-                            <td class="time"><a>Čas: <a id="cas">00:00</a></a></td>
+                            <td class="time"><a>Time: <a id="cas">00:00</a></a></td>
                         </tr>
                     </table>
                 </div>
             </div>
-            
-
-
-            
         </div>
         
     </body>

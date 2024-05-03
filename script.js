@@ -28,6 +28,11 @@ var x = 250;
   var start = true;
   const ice = document.getElementById("ice");
   var anc=0;
+  var audio = new Audio('sound/melt.mp3');
+  audio.volume=0.05;
+  var score = 1;
+  var hit=0;
+  var nbrick;
   
   var fire =new Array();
   fire[0] =new Image();
@@ -59,25 +64,35 @@ var x = 250;
     Swal.fire({
       title: "YOU WON",
       text: "gg",
-      confirmButtonText: "OK",
+      confirmButtonText: "PLAY AGAIN",
       confirmButtonColor: "#7d9ab3",
       customClass: {
 				title: "custom-title",
 			},
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.reload();
+      }
     });
   }
 
   function end(){
     Swal.fire({
       title: "GAME OVER",
-      text: "you lost",
-      confirmButtonText: "OK",
+      text: "You lost better luck next time",
+      confirmButtonText: "TRY AGAIN",
       confirmButtonColor: "#7d9ab3",
       customClass: {
 				title: "custom-title",
 			},
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.reload();
+      }
     });
   }
+
+
 
 function drawIt() {
   
@@ -143,6 +158,7 @@ function drawIt() {
   function initbricks() { //inicializacija opek - polnjenje v tabelo
     NROWS = 4;
     NCOLS = 4;
+    nbrick= NROWS*NCOLS;
     BRICKWIDTH = (WIDTH / NCOLS) - 7;
     BRICKHEIGHT = 55;
     PADDING = 5;
@@ -191,8 +207,6 @@ function drawIt() {
     }
     ctx.drawImage(fire[anc],x-r,y-r,2*r,2*r);
 
-
-
     if (x + dx > WIDTH - r || x + dx < r)
       dx = -dx;
     if (y + dy > HEIGHT -10 || y + dy < r)
@@ -200,7 +214,6 @@ function drawIt() {
     x += dx;
     y += dy;
 
-    
     //premik ploščice levo in desno
     if (rightDown) paddlex += 5;
     else if (leftDown) paddlex -= 5;
@@ -246,30 +259,43 @@ function drawIt() {
     col = Math.floor(x / colwidth);
     //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
     if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
-      dy = -dy; bricks[row][col] = 0;
+      dy = -dy; 
+      bricks[row][col] = 0;
+      audio.play();
       tocke += 10; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
       $("#tocke").html(tocke);
+      hit++;
+      if(hit==nbrick){
+        dx=0;
+        dy=0;
+        win();
+        //clearInterval(intervalId);
+      }
     }
     if (x + dx > WIDTH - r || x + dx < r)
       dx = -dx;
     if (y + dy < 0 + r)
       dy = -dy;
     else if (y + dy > HEIGHT - 12) {
-      if (x > paddlex && x < paddlex + paddlew) {
+      if ((x > paddlex||x+2*r>paddlex) && x < paddlex + paddlew) {
         dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
         dy = -dy;
       }
-      else if (y + dy > HEIGHT - 12) {
-        start = false;
-        if (x > paddlex && x < paddlex + paddlew) {
-          dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
-          dy = -dy;
-          start = true;
-        }
-        else if (y + dy > HEIGHT - 12)
+        else if (y + dy > HEIGHT - 12) {
+          score--;
+          sekunde = 0;
+          console.log(score);
+          if (!score) {
+            start = false;
+            // Show sweet alert
+            end();
+          } else {
+            drawIt();
+          }
           clearInterval(intervalId);
+        }
       }
     }
   }
-}
+
 
