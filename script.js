@@ -1,101 +1,100 @@
 var x = 250;
-  var y = 350;
-  var dx = 0;
-  var dy = 1.5;
-  var WIDTH = 500;
-  var HEIGHT = 700;
-  var r = 20;
-  var ctx;
-  var paddlex;
-  var paddleh;
-  var paddlew;
-  var rightDown = false;
-  var leftDown = false;
-  var canvasMinX;
-  var canvasMaxX;
-  var bricks;
-  var NROWS;
-  var NCOLS;
-  var BRICKWIDTH;
-  var BRICKHEIGHT;
-  var PADDING;
-  var tocke;
-  var sekunde =0;
-  var sekundeI;
-  var minuteI;
-  var intTimer;
-  var izpisTimer;
-  var start = true;
-  const ice = document.getElementById("ice");
-  var anc=0;
-  var audio = new Audio('sound/melt.mp3');
-  audio.volume=0.05;
-  var score = 1;
-  var hit=0;
-  var nbrick;
-  
-  var fire =new Array();
-  fire[0] =new Image();
-  fire[0].src= 'img/fire1.png';
-  fire[1] =new Image();
-  fire[1].src= 'img/fire2.png';
-  fire[2] =new Image();
-  fire[2].src= 'img/fire3.png';
-  fire[3] =new Image();
-  fire[3].src= 'img/fire4.png';
-  fire[4] =new Image();
-  fire[4].src= 'img/fire5.png';
-  fire[5] =new Image();
-  fire[5].src= 'img/fire6.png';
+var y = 350;
+var dx = 0;
+var dy = 1.5;
+var WIDTH = 500;
+var HEIGHT = 700;
+var r = 20;
+var ctx;
+var paddlex;
+var paddleh;
+var paddlew;
+var rightDown = false;
+var leftDown = false;
+var canvasMinX;
+var canvasMaxX;
+var bricks;
+var NROWS;
+var NCOLS;
+var BRICKWIDTH;
+var BRICKHEIGHT;
+var PADDING;
+var tocke;
+var sekunde = 0;
+var sekundeI;
+var minuteI;
+var intTimer;
+var izpisTimer;
+var start = true;
+const ice = document.getElementById("ice");
+var anc = 0;
+var audio = new Audio('sound/melt.mp3');
+audio.volume = 0.05;
+var score = 1;
+var hit = 0;
+var nbrick;
 
-  function rules(){
-    Swal.fire({
-      title: "RULES",
-      text: "Melt away the bricks. Use mouse or arrow keys.",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#7d9ab3",
-      customClass: {
-				title: "custom-title",
-			},
-    });
-  }
+var fire = new Array();
+fire[0] = new Image();
+fire[0].src = 'img/fire1.png';
+fire[1] = new Image();
+fire[1].src = 'img/fire2.png';
+fire[2] = new Image();
+fire[2].src = 'img/fire3.png';
+fire[3] = new Image();
+fire[3].src = 'img/fire4.png';
+fire[4] = new Image();
+fire[4].src = 'img/fire5.png';
+fire[5] = new Image();
+fire[5].src = 'img/fire6.png';
 
-  function win(){
-    Swal.fire({
-      title: "YOU WON",
-      text: "gg",
-      confirmButtonText: "PLAY AGAIN",
-      confirmButtonColor: "#7d9ab3",
-      customClass: {
-				title: "custom-title",
-			},
-    }).then((result) => {
-      if (result.isConfirmed) {
-        location.reload();
-      }
-    });
-  }
+function rules() {
+  Swal.fire({
+    title: "RULES",
+    text: "Melt away the bricks. Use mouse or arrow keys.",
+    confirmButtonText: "OK",
+    confirmButtonColor: "#7d9ab3",
+    customClass: {
+      title: "custom-title",
+    },
+  });
+}
 
-  function end(){
-    Swal.fire({
-      title: "GAME OVER",
-      text: "You lost better luck next time",
-      confirmButtonText: "TRY AGAIN",
-      confirmButtonColor: "#7d9ab3",
-      customClass: {
-				title: "custom-title",
-			},
-    }).then((result) => {
-      if (result.isConfirmed) {
-        location.reload();
-      }
-    });
-  }
+function win() {
+  Swal.fire({
+    title: "YOU WON",
+    text: "gg",
+    confirmButtonText: "PLAY AGAIN",
+    confirmButtonColor: "#7d9ab3",
+    customClass: {
+      title: "custom-title",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      location.reload();
+    }
+  });
+}
 
+function end() {
+  Swal.fire({
+    title: "GAME OVER",
+    text: "You lost better luck next time",
+    confirmButtonText: "TRY AGAIN",
+    confirmButtonColor: "#7d9ab3",
+    customClass: {
+      title: "custom-title",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      location.reload();
+    }
+  });
+}
 
 
 function drawIt() {
-  
+
   function init() {
     ctx = $('#canvas')[0].getContext("2d");
     WIDTH = $("#canvas").width();
@@ -105,7 +104,7 @@ function drawIt() {
     sekunde = 0;
     izpisTimer = "00:00";
     intTimer = setInterval(timer, 1000);
-    intAni = setInterval(animation,100);
+    intAni = setInterval(animation, 100);
     return intervalId = setInterval(draw, 10);
   }
 
@@ -158,7 +157,7 @@ function drawIt() {
   function initbricks() { //inicializacija opek - polnjenje v tabelo
     NROWS = 4;
     NCOLS = 4;
-    nbrick= NROWS*NCOLS;
+    nbrick = NROWS * NCOLS;
     BRICKWIDTH = (WIDTH / NCOLS) - 7;
     BRICKHEIGHT = 55;
     PADDING = 5;
@@ -188,11 +187,11 @@ function drawIt() {
     }
   }
 
-  function animation(){
+  function animation() {
     anc++;
   }
-  document.getElementById("reset").disabled=false;
-  document.getElementById("play").disabled=true;
+  document.getElementById("reset").disabled = false;
+  document.getElementById("play").disabled = true;
   init();
   init_paddle();
   init_mouse();
@@ -202,14 +201,14 @@ function drawIt() {
     clear();
 
     //set to -1 of array ore else error
-    if(anc>5){
-      anc=0;
+    if (anc > 5) {
+      anc = 0;
     }
-    ctx.drawImage(fire[anc],x-r,y-r,2*r,2*r);
+    ctx.drawImage(fire[anc], x - r, y - r, 2 * r, 2 * r);
 
     if (x + dx > WIDTH - r || x + dx < r)
       dx = -dx;
-    if (y + dy > HEIGHT -10 || y + dy < r)
+    if (y + dy > HEIGHT - 10 || y + dy < r)
       dy = -dy;
     x += dx;
     y += dy;
@@ -235,7 +234,7 @@ function drawIt() {
         }
         else if (y + dy > HEIGHT - 10)
           clearInterval(intervalId);
-          start = false;
+        start = false;
       }
     }
     x += dx;
@@ -247,7 +246,7 @@ function drawIt() {
     for (i = 0; i < NROWS; i++) {
       for (j = 0; j < NCOLS; j++) {
         if (bricks[i][j] == 1) {
-          ctx.drawImage(ice,j * (BRICKWIDTH + PADDING) + PADDING,i * (BRICKHEIGHT + PADDING) + PADDING,BRICKWIDTH, BRICKHEIGHT);
+          ctx.drawImage(ice, j * (BRICKWIDTH + PADDING) + PADDING, i * (BRICKHEIGHT + PADDING) + PADDING, BRICKWIDTH, BRICKHEIGHT);
         }
       }
     }
@@ -259,15 +258,15 @@ function drawIt() {
     col = Math.floor(x / colwidth);
     //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
     if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
-      dy = -dy; 
+      dy = -dy;
       bricks[row][col] = 0;
       audio.play();
       tocke += 10; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
       $("#tocke").html(tocke);
       hit++;
-      if(hit==nbrick){
-        dx=0;
-        dy=0;
+      if (hit == nbrick) {
+        dx = 0;
+        dy = 0;
         win();
         //clearInterval(intervalId);
       }
@@ -277,25 +276,25 @@ function drawIt() {
     if (y + dy < 0 + r)
       dy = -dy;
     else if (y + dy > HEIGHT - 12) {
-      if ((x > paddlex||x+2*r>paddlex) && x < paddlex + paddlew) {
+      if ((x > paddlex || x + 2 * r > paddlex) && x < paddlex + paddlew) {
         dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
         dy = -dy;
       }
-        else if (y + dy > HEIGHT - 12) {
-          score--;
-          sekunde = 0;
-          console.log(score);
-          if (!score) {
-            start = false;
-            // Show sweet alert
-            end();
-          } else {
-            drawIt();
-          }
-          clearInterval(intervalId);
+      else if (y + dy > HEIGHT - 12) {
+        score--;
+        sekunde = 0;
+        console.log(score);
+        if (!score) {
+          start = false;
+          // Show sweet alert
+          end();
+        } else {
+          drawIt();
         }
+        clearInterval(intervalId);
       }
     }
   }
+}
 
 
